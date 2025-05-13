@@ -1,0 +1,68 @@
+[
+  {
+    "category": "Technical",
+    "role": "Java Developer",
+    "jobDescription": "Java Developer\nDevelop and maintain Java applications using Spring Boot, Hibernate, and RESTful APIs.\nWrite efficient, scalable, and secure backend code following best practices.\nCollaborate with cross-functional teams to design, develop, and deploy new features.\nplease add 2 coding questions.\n please dont ask again about coding questions",
+    "firstSlider": 5,
+    "secondSlider": 10,
+    "managerName": "Tech Manager 1",
+    "phoneNumber": "+919874563210",
+    "email": "tech.manager1@gmail.com",
+    "candidates": [
+      {
+        "firstName": "John",
+        "lastName": "Doe",
+        "preferredName": "Johnny",
+        "email": "john.doe@example.com",
+        "experience": 5,
+        "country": "India",
+        "countryoption": "India (IN) +",
+        "phoneNumber": "9874563210",
+        "resumePath": "./resumes/john_doe_resume.pdf"
+      },
+      {
+        "firstName": "Alice",
+        "lastName": "Smith",
+        "preferredName": "Ali",
+        "email": "alice.smith@example.com",
+        "experience": 4,
+        "country": "USA",
+        "countryoption": "USA (US) +",
+        "phoneNumber": "1234567890",
+        "resumePath": "./resumes/alice_smith_resume.pdf"
+      }
+    ]
+  },
+  {
+    "category": "Technical",
+    "role": "Python Developer",
+    "jobDescription": "Python Developer\nDesign and develop web applications using Django and Flask frameworks.\nBuild and optimize scalable RESTful APIs for seamless integration.\nEnsure code quality, security, and performance through best practices.\nCollaborate with teams to deliver efficient and innovative software solutions.\nAdd two interview questions.\nPlease dont ask about coding questions again",
+    "firstSlider": 4,
+    "secondSlider": 8,
+    "managerName": "Tech Manager 2",
+    "phoneNumber": "+918765432109",
+    "email": "tech.manager2@gmail.com",
+    "candidates": [
+      {
+        "firstName": "David",
+        "lastName": "Miller",
+        "preferredName": "Dave",
+        "email": "david.miller@example.com",
+        "experience": 3,
+        "country": "UK (GB) +",
+        "phoneNumber": "5432109876",
+        "resumePath": "./resumes/david_miller_resume.pdf"
+      },
+      {
+        "firstName": "Emma",
+        "lastName": "Johnson",
+        "preferredName": "Em",
+        "email": "emma.johnson@example.com",
+        "experience": 5,
+        "country": "Canada (CA) +",
+        "phoneNumber": "2345678901",
+        "resumePath": "./resumes/emma_johnson_resume.pdf"
+      }
+    ]
+  }
+]

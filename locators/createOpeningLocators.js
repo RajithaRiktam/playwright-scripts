@@ -1,0 +1,17 @@
+export const createOpeningLocators = {
+    createOpeningButton: "text=Create Opening",
+    createOpeningButton1: "role=button[name='Create Opening']",
+    technicalButton: "role=button[name='Technical']",
+    jdInput: "label:has-text('Type or paste your JD here:')",
+    firstSliderSelector: "span[data-index='0'] input",
+    secondSliderSelector: "span[data-index='1'] input",
+    jobOpeningName: "label:has-text('Job Opening Name')",
+    assignedManagerHeading: "role=heading[name='Assigned Manager']",
+    managerNameInput: 'input[placeholder="Enter Manager Name"]',
+    managerPhoneInput: 'input[name="supportPhone"]',
+    managerEmailInput: 'input[placeholder="Enter Email ID"]',
+    createOpeningSubmit: "role=button[name='Create Opening']",
+    createdOpeningHeading: (opening) => `role=heading[name='${opening}']`,
+    modalHeading: "role=heading[name='Create Opening - Technical']",
+    goodButton: "role=button[name='Looks Good']",
+};

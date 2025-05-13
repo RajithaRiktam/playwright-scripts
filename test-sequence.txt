@@ -1,0 +1,5 @@
+tests/createOpening.spec.js
+tests/addCandidate.spec.js
+tests/duplicateOpening.spec.js
+tests/editOpening.spec.js
+tests/deleteOpening.spec.js

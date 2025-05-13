@@ -1,0 +1,18 @@
+export const addCandidatesLocators = {
+    jobCard: (jobIdValue) => `.card:has-text("Job ID: ${jobIdValue}")`,
+    showCandidatesButton: 'button:has-text("Show Candidates")',
+    addCandidateButton: 'button:has-text("Add Candidate")',
+    loadingOverlay: '.loading-overlay',
+    modalOverlay: '.modal',
+    firstNameInput: 'input[name="firstName"]',
+    lastNameInput: 'input[name="lastName"]',
+    preferredNameInput: 'input[name="preferredName"]',
+    emailInput: 'input[name="email"]',
+    experienceInput: 'input[name="experience"]',
+    countrySelector: '#country-selector',
+    countryOption: 'option[name="India (IN) +"]',
+    phoneNumberInput: 'input[name="phoneNumber"]',
+    resumeUploadInput: 'input[name="resume"]',
+    saveButton: 'button:has-text("Save")',
+    candidateLocator: (firstName, lastName) => `text=${firstName} ${lastName}`,
+};
