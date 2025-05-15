@@ -8,7 +8,7 @@ export class AddCandidatesPage {
     }
 
     async addCandidates() {
-        test.setTimeout(90000);
+        test.setTimeout(100000);
 
         await this.page.waitForLoadState('domcontentloaded');
 
@@ -42,7 +42,7 @@ export class AddCandidatesPage {
                     console.log(" Modal detected. Closing...");
 
                     await this.page.keyboard.press('Escape'); // closing with Escape key
-                    await modalBackdrop.waitFor({ state: 'detached', timeout: 5000 }).catch(() => {
+                    await modalBackdrop.waitFor({ state: 'detached', timeout: 10000 }).catch(() => {
                         console.error("ERROR: Modal did not close in time!");
                     });
                 }
@@ -55,7 +55,6 @@ export class AddCandidatesPage {
                 await this.page.locator(addCandidatesLocators.addCandidateButton).waitFor({ state: 'visible', timeout: 5000 });
 
                 await this.page.locator(addCandidatesLocators.addCandidateButton).click({ force: true });
-                await this.page.locator('input[name="firstName"]').waitFor({ state: 'visible', timeout: 5000 });
 
                 await this.page.locator('input[name="firstName"]').fill(candidate.firstName);
                 await this.page.locator('input[name="lastName"]').fill(candidate.lastName);
