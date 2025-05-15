@@ -19,7 +19,7 @@ export class EditOpeningPage {
         const jobCard = await this.page.locator(`.card:has-text("Job ID: ${jobIdValue}")`);
 
         const icon = jobCard.locator(editOpeningLocators.moreVertIcon);
-        await icon.waitFor({ state: 'visible' }); 
+        await icon.waitFor({ state: 'visible' });
         await icon.click();
 
 
@@ -27,8 +27,6 @@ export class EditOpeningPage {
         await this.page.locator(editOpeningLocators.editOpeningButton).click();
         await this.page.locator(editOpeningLocators.jobOpeningTextbox).click();
         for (const data of editOpeningData) {
-
-
 
             // Update Job Opening Name
             const jobOpeningTextbox = this.page.locator(editOpeningLocators.jobOpeningTextbox);
@@ -43,8 +41,9 @@ export class EditOpeningPage {
 
             // Add Skill
             await this.page.locator(editOpeningLocators.addSkillButton).nth(1).click();
-            await this.page.locator(editOpeningLocators.skillInput).fill(data.skillInput);
             await this.page.locator(editOpeningLocators.deleteSkillButton).first().click();
+            await this.page.locator(editOpeningLocators.skillInput).fill(data.skillInput);
+
 
             // Max Questions
             await this.page.locator(editOpeningLocators.maxQuestionsSpinButton).fill(data.max_questions);

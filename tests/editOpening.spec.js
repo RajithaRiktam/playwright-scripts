@@ -4,7 +4,7 @@ import { login } from "../utils/authUtils.js";
 import { EditOpeningPage } from "../pages/EditOpeningPage.js";
 
 
-test("Create Job Opening", async ({ page }) => {
+test("Edit Job Opening", async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await test.step('Step 1: Login', async () => {
         await login(page);

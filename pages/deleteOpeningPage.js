@@ -7,8 +7,6 @@ export class DeleteOpeningPage {
         this.page = page;
     }
 
-
-
     async deleteOpening() {
         await this.page.setViewportSize({ width: 1920, height: 1080 });
         // Read jobData dynamically to ensure the latest values are used

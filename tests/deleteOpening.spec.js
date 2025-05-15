@@ -3,7 +3,7 @@ import { login } from "../utils/authUtils.js";
 import { DeleteOpeningPage } from "../pages/deleteOpeningPage.js";
 
 
-test("Create Job Opening", async ({ page }) => {
+test("Delete Job Opening", async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await test.step('Step 1: Login', async () => {
         await login(page);
