@@ -8,9 +8,9 @@ export class AddCandidatesPage {
     }
 
     async addCandidates() {
-        test.setTimeout(90000); 
+        test.setTimeout(90000);
 
-        await this.page.waitForLoadState('domcontentloaded'); 
+        await this.page.waitForLoadState('domcontentloaded');
 
         const testdata = JSON.parse(fs.readFileSync('./testdata/createOpeningData.json', 'utf-8'));
         const jobData = JSON.parse(fs.readFileSync("./jobData.json", "utf-8"));
@@ -47,13 +47,15 @@ export class AddCandidatesPage {
                     });
                 }
 
+
+
                 console.log("Modal closed. Proceeding...");
 
                 // Ensure the button is enabled before clicking
                 await this.page.locator(addCandidatesLocators.addCandidateButton).waitFor({ state: 'visible', timeout: 5000 });
 
-                 await this.page.locator(addCandidatesLocators.addCandidateButton).click({ force: true });
-                
+                await this.page.locator(addCandidatesLocators.addCandidateButton).click({ force: true });
+                await this.page.locator('input[name="firstName"]').waitFor({ state: 'visible', timeout: 5000 });
 
                 await this.page.locator('input[name="firstName"]').fill(candidate.firstName);
                 await this.page.locator('input[name="lastName"]').fill(candidate.lastName);
@@ -89,7 +91,7 @@ export class AddCandidatesPage {
                     console.log(`Successfully saved candidate: ${candidate.email}`);
                 }
 
-             
+
                 const candidateLocator = this.page.getByRole('row').filter({ hasText: candidate.email });
 
                 try {
@@ -99,7 +101,7 @@ export class AddCandidatesPage {
                             return Array.from(rows).some(row => row.innerText.includes(email));
                         },
                         candidate.email,
-                        { timeout: 15000 } 
+                        { timeout: 15000 }
                     );
                     console.log(`Candidate row found: ${candidate.email}`);
 
