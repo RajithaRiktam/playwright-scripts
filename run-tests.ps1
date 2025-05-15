@@ -1,20 +1,25 @@
 Set-Location $PSScriptRoot
 
-# Step 1: Install Node.js dependencies
+# Install dependencies
 npm install
-
-# Step 2: Ensure Playwright Test is installed
 npm install @playwright/test --save-dev
-
-# Step 3: Install Playwright browsers (Chromium, Firefox, WebKit)
 npx playwright install
 
-# Step 4: Run test files listed in test-sequence.txt
+# Run test files listed in test-sequence.txt
 Get-Content test-sequence.txt | Where-Object { $_ -notmatch '^\s*#' -and $_.Trim() -ne "" } | ForEach-Object {
-    Write-Host "Running test: $_"
-    npx playwright test $_ --headless
+    Write-Host "`nRunning test: $_"
+
+    # Read the file and check if it uses @playwright/test
+    $content = Get-Content $_ -Raw
+    if ($content -match "@playwright/test") {
+        npx playwright test $_ --headless
+    }
+    else {
+        npx node $_
+    }
+
     if ($LASTEXITCODE -ne 0) {
-        Write-Host " Test failed: $_"
+        Write-Host "❌ Test failed: $_"
         exit 1
     }
 }
