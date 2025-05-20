@@ -23,8 +23,13 @@ export class EditOpeningPage {
         await icon.click();
 
 
+        const button = this.page.locator(editOpeningLocators.editOpeningButton);
+        // Wait until visible
+        await button.waitFor({ state: 'visible', timeout: 10000 });
+        await button.click({ trial: true });
+        await button.click();
 
-        await this.page.locator(editOpeningLocators.editOpeningButton).click();
+
         await this.page.locator(editOpeningLocators.jobOpeningTextbox).click();
         for (const data of editOpeningData) {
 

@@ -1,6 +1,6 @@
 export const editOpeningLocators = {
     moreVertIcon: '[data-testid="MoreVertIcon"]',
-    editOpeningButton: "role=button[name='Edit Opening']",
+    editOpeningButton: "button[aria-label='Edit Opening']",
     jobOpeningTextbox: "role=textbox[name='Job Opening Name']",
     addResponsibilityButton: 'button:has-text("Add Job Responsibility")',
     responsibilityInput: 'input[name="jobRequirementsAndResponsibilities\\.4\\.value"]',

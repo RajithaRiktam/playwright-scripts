@@ -91,7 +91,7 @@ export class AddCandidatesPage {
                 }
 
 
-                const candidateLocator = this.page.getByRole('row').filter({ hasText: candidate.email });
+                const candidateLocator = this.page.locator('tr', { hasText: candidate.email });
 
                 try {
                     await this.page.waitForFunction(
@@ -104,8 +104,7 @@ export class AddCandidatesPage {
                     );
                     console.log(`Candidate row found: ${candidate.email}`);
 
-                    //await expect(candidateLocator).toContainText(candidate.firstName);
-                    //await expect(candidateLocator).toContainText(candidate.lastName);
+                    await candidateLocator.waitFor({ state: 'visible', timeout: 5000 });
                     await expect(candidateLocator).toContainText(candidate.email);
                 } catch (error) {
                     console.error(`ERROR: Candidate row did NOT appear for ${candidate.email}`);
@@ -113,12 +112,12 @@ export class AddCandidatesPage {
             }
 
             // Ensure page navigation completes before proceeding
-            try {
-                await this.page.goBack();
-                await this.page.waitForLoadState('domcontentloaded'); // Wait for page load
-            } catch (error) {
-                console.error(`ERROR: Failed to navigate back`);
-            }
+            /*   try {
+                   await this.page.goBack();
+                   await this.page.waitForLoadState('domcontentloaded'); // Wait for page load
+               } catch (error) {
+                   console.error(`ERROR: Failed to navigate back`);
+               }*/
         }
     }
 }
