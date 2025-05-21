@@ -21,12 +21,14 @@ export class EditOpeningPage {
         const icon = await jobCard.locator(editOpeningLocators.moreVertIcon);
         await icon.waitFor({ state: 'visible' });
         await icon.click();
+        await this.page.waitForTimeout(500);
 
+       // const button = await this.page.locator(editOpeningLocators.editOpeningButton);
+        await this.page.getByRole('button', { name: 'Edit Opening' }).click();
 
-        const button = await this.page.locator(editOpeningLocators.editOpeningButton);
-
-        console.log('Waiting for Edit Opening button...');
-        await button.click();
+       /* console.log('Waiting for Edit Opening button...');
+        await expect(button).toBeVisible({ timeout: 20000 });
+        await button.click();*/
 
 
 
