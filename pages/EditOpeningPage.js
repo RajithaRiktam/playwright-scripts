@@ -19,16 +19,19 @@ export class EditOpeningPage {
         const jobCard = await this.page.locator(`.card:has-text("Job ID: ${jobIdValue}")`);
 
         const icon = await jobCard.locator(editOpeningLocators.moreVertIcon);
-        await icon.waitFor({ state: 'visible' });
+        await expect(icon).toBeVisible();
+        await icon.hover();
+        await this.page.waitForTimeout(300);
         await icon.click();
         await this.page.waitForTimeout(500);
 
-       // const button = await this.page.locator(editOpeningLocators.editOpeningButton);
-        await this.page.getByRole('button', { name: 'Edit Opening' }).click();
-
-       /* console.log('Waiting for Edit Opening button...');
+        const button = await this.page.locator(editOpeningLocators.editOpeningButton);
+        console.log('Waiting for Edit Opening button...');
         await expect(button).toBeVisible({ timeout: 20000 });
-        await button.click();*/
+        await button.hover();
+        await this.page.waitForTimeout(200);
+        await button.click();
+
 
 
 
@@ -42,14 +45,19 @@ export class EditOpeningPage {
             await jobOpeningTextbox.type(data.opening_Name_upd);
 
             // Add Responsibility
-            await this.page.locator(editOpeningLocators.addResponsibilityButton).click();
+            const resp = await this.page.locator(editOpeningLocators.addResponsibilityButton);
+            await expect(resp).toBeVisible();
+            await resp.hover();
+            await resp.click();
+            //await this.page.locator(editOpeningLocators.addResponsibilityButton).click();
             await this.page.locator(editOpeningLocators.responsibilityInput).fill(data.responsibilities);
-            await this.page.locator(editOpeningLocators.deleteResponsibilityButton).click();
+            await this.page.locator(editOpeningLocators.deleteResponsibilityButton).first().click();
 
             // Add Skill
             await this.page.locator(editOpeningLocators.addSkillButton).nth(1).click();
-            await this.page.locator(editOpeningLocators.deleteSkillButton).first().click();
             await this.page.locator(editOpeningLocators.skillInput).fill(data.skillInput);
+            await this.page.locator(editOpeningLocators.deleteSkillButton).first().click();
+           
 
 
             // Max Questions
