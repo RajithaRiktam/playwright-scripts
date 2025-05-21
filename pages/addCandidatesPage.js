@@ -112,12 +112,12 @@ export class AddCandidatesPage {
             }
 
             // Ensure page navigation completes before proceeding
-            /*   try {
+              try {
                    await this.page.goBack();
                    await this.page.waitForLoadState('domcontentloaded'); // Wait for page load
                } catch (error) {
                    console.error(`ERROR: Failed to navigate back`);
-               }*/
+               }
         }
     }
 }
