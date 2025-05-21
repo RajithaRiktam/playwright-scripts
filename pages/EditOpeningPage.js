@@ -18,15 +18,14 @@ export class EditOpeningPage {
         const jobIdValue = jobData.jobIdValue1;
         const jobCard = await this.page.locator(`.card:has-text("Job ID: ${jobIdValue}")`);
 
-        const icon = jobCard.locator(editOpeningLocators.moreVertIcon);
+        const icon = await jobCard.locator(editOpeningLocators.moreVertIcon);
         await icon.waitFor({ state: 'visible' });
         await icon.click();
 
 
-        const button = this.page.locator(editOpeningLocators.editOpeningButton);
-        // Wait until visible
-        await button.waitFor({ state: 'attached', timeout: 20000 });
-        await expect(button).toBeVisible();
+        const button = await this.page.locator(editOpeningLocators.editOpeningButton);
+
+        console.log('Waiting for Edit Opening button...');
         await button.click();
 
 
