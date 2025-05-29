@@ -55,9 +55,10 @@ export class EditOpeningPage {
 
             // Add Skill
             await this.page.locator(editOpeningLocators.addSkillButton).nth(1).click();
-            await this.page.locator(editOpeningLocators.skillInput).fill(data.skillInput);
             await this.page.locator(editOpeningLocators.deleteSkillButton).first().click();
-           
+            await this.page.locator(editOpeningLocators.skillInput).fill(data.skillInput);
+
+
 
 
             // Max Questions

@@ -4,13 +4,13 @@ export class LoginPage {
         this.page = page;
         this.emailInput = page.getByLabel('Email');
         this.passwordInput = page.getByLabel('Password');
-        this.loginButton = page.getByRole('button', { name: 'Login' });
-        this.logoutButton = page.getByRole('button', { name: 'Logout' });
-        this.menu=page.getByRole('button', { name: 'menu' });
+        this.loginButton = page.getByRole('button', { name: 'Log In' });
+        this.logoutButton = page.locator('text=Log Out');
+        this.menu = page.locator('button[aria-label="menu"]');
     }
 
     async goto() {
-        await this.page.goto('https://app.zinterview.ai/login');
+        await this.page.goto(process.env.BASE_URL);
     }
 
     async login(email, password) {
@@ -20,12 +20,27 @@ export class LoginPage {
         await this.page.waitForLoadState('domcontentloaded');
         const baseUrlWithoutLogin = process.env.BASE_URL.replace('/login', '');
         await expect(this.page).toHaveURL(`${baseUrlWithoutLogin}/admin`);
+        const dialog = await this.page.waitForSelector('[role="dialog"]', { timeout: 3000 }).catch(() => null);
+
+        if (dialog) {
+            await this.page.click('[role="dialog"] [aria-label="Close"]');
+            await this.page.waitForSelector('[role="dialog"]', { state: 'detached' });
+        }
+
     }
 
     async logout() {
-        await this.menu.click();
+        await this.page.evaluate(() => {
+            document.querySelector('button[aria-label="menu"]')?.click();
+        });
+        await this.logoutButton.hover();
         await this.logoutButton.click();
-        await this.page.waitForSelector('text=Login'); // Wait for login page
+        await expect(this.loginButton).toBeVisible();
         console.log("Successfully logged out.");
     }
+
+
+
+
+
 }

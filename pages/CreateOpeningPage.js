@@ -1,5 +1,4 @@
 import { createOpeningLocators } from "../locators/createOpeningLocators.js";
-import { createOpeningData } from "../testdata/createOpeningData.json";
 import { moveSlider } from "../utils/sliderUtils.js";
 import fs from 'fs';
 

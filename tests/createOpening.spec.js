@@ -14,6 +14,7 @@ test("Create Job Opening", async ({ page }) => {
         const createOpeningPage = new CreateOpeningPage(page);
         await createOpeningPage.createOpening();
     });
+    
  /*   await test.step('Step 3: Add Candidates ', async () => {
         const addCandidatesPage = new AddCandidatesPage(page);
         await addCandidatesPage.addCandidates();
