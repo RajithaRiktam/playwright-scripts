@@ -53,11 +53,15 @@ export class EditOpeningPage {
             await this.page.locator(editOpeningLocators.responsibilityInput).fill(data.responsibilities);
             await this.page.locator(editOpeningLocators.deleteResponsibilityButton).first().click();
 
-            // Add Skill
+            // Add a new skill
             await this.page.locator(editOpeningLocators.addSkillButton).nth(1).click();
+            // Delete the first skill 
             await this.page.locator(editOpeningLocators.deleteSkillButton).first().click();
-            await this.page.locator(editOpeningLocators.skillInput).fill(data.skillInput);
-
+            await this.page.waitForSelector(editOpeningLocators.skillInput);
+            // Get all current skill inputs (after add/delete)
+            const skillInputs = await this.page.locator(editOpeningLocators.skillInput).all();
+            // Fill the last one (newest added)
+            await skillInputs[skillInputs.length - 1].fill(data.skillInput);
 
 
 
