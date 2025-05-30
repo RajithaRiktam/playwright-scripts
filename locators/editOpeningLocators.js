@@ -7,7 +7,7 @@ export const editOpeningLocators = {
     deleteResponsibilityButton: '.flex > div > .flex > .MuiButtonBase-root',
   
     addSkillButton: 'button:has-text("Add Skill")',
-    skillInput: 'input[name="skillsGroups\\.0\\.skills\\.3\\.value"]',
+    skillInput: 'input[name^="skillsGroups.0.skills"]',
     deleteSkillButton: '.bg-white > div:nth-child(2) > div > div > .MuiButtonBase-root',
     maxQuestionsSpinButton: "role=spinbutton[name='Max Number of Questions to Ask']",
     openingname:'//h3',

@@ -32,9 +32,6 @@ export class EditOpeningPage {
         await this.page.waitForTimeout(200);
         await button.click();
 
-
-
-
         await this.page.locator(editOpeningLocators.jobOpeningTextbox).click();
         for (const data of editOpeningData) {
 
@@ -44,24 +41,34 @@ export class EditOpeningPage {
             await jobOpeningTextbox.press('End');
             await jobOpeningTextbox.type(data.opening_Name_upd);
 
-            // Add Responsibility
-            const resp = await this.page.locator(editOpeningLocators.addResponsibilityButton);
-            await expect(resp).toBeVisible();
-            await resp.hover();
-            await resp.click();
-            //await this.page.locator(editOpeningLocators.addResponsibilityButton).click();
-            await this.page.locator(editOpeningLocators.responsibilityInput).fill(data.responsibilities);
+
+
+            const responsibilities = await this.page.locator('input[name^="jobRequirementsAndResponsibilities"]');
+            const initialCount = await responsibilities.count();
+
+            await this.page.locator(editOpeningLocators.addResponsibilityButton).click();
+            await expect(responsibilities).toHaveCount(initialCount + 1);
+
+            await responsibilities.nth(initialCount).fill(data.responsibilities);
             await this.page.locator(editOpeningLocators.deleteResponsibilityButton).first().click();
+
 
             // Add a new skill
             await this.page.locator(editOpeningLocators.addSkillButton).nth(1).click();
-            // Delete the first skill 
+
+            // Delete the first skill
             await this.page.locator(editOpeningLocators.deleteSkillButton).first().click();
-            await this.page.waitForSelector(editOpeningLocators.skillInput);
-            // Get all current skill inputs (after add/delete)
-            const skillInputs = await this.page.locator(editOpeningLocators.skillInput).all();
-            // Fill the last one (newest added)
-            await skillInputs[skillInputs.length - 1].fill(data.skillInput);
+
+            // Wait for the skill input list
+            const skillInputs = this.page.locator(editOpeningLocators.skillInput);
+            const count = await skillInputs.count();
+            // check
+            if (count === 0) {
+                throw new Error('No skill inputs found after add/delete actions');
+            }
+
+            // Fill the last one
+            await skillInputs.nth(count - 1).fill(data.skillInput);
 
 
 
