@@ -18,20 +18,35 @@ export class EditOpeningPage {
         const jobIdValue = jobData.jobIdValue1;
         const jobCard = await this.page.locator(`.card:has-text("Job ID: ${jobIdValue}")`);
 
-        const icon = await jobCard.locator(editOpeningLocators.moreVertIcon);
-        await expect(icon).toBeVisible();
+        // Wait for the moreVertIcon to be visible and interactable
+        const icon = jobCard.locator(editOpeningLocators.moreVertIcon);
+        await icon.waitFor({ state: 'visible', timeout: 5000 });
         await icon.hover();
-        await this.page.waitForTimeout(300);
         await icon.click();
-        await this.page.waitForTimeout(500);
 
-        const button = await this.page.locator(editOpeningLocators.editOpeningButton);
+        // Now wait for the Edit Opening button
+        const button = this.page.locator(editOpeningLocators.editOpeningButton);
         console.log('Waiting for Edit Opening button...');
-        await expect(button).toBeVisible({ timeout: 20000 });
+        await button.waitFor({ state: 'visible', timeout: 5000 });
         await button.hover();
-        await this.page.waitForTimeout(200);
         await button.click();
 
+
+
+        /*  const icon = await jobCard.locator(editOpeningLocators.moreVertIcon);
+          await expect(icon).toBeVisible();
+          await icon.hover();
+          await this.page.waitForTimeout(300);
+          await icon.click();
+          await this.page.waitForTimeout(500);
+  
+          const button = await this.page.locator(editOpeningLocators.editOpeningButton);
+          console.log('Waiting for Edit Opening button...');
+          await expect(button).toBeVisible({ timeout: 20000 });
+          await button.hover();
+          await this.page.waitForTimeout(200);
+          await button.click();
+  */
         await this.page.locator(editOpeningLocators.jobOpeningTextbox).click();
         for (const data of editOpeningData) {
 
