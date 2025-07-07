@@ -14,8 +14,6 @@ export class AssignRolePage {
 
         await this.page.waitForLoadState('domcontentloaded');
         const jobData = JSON.parse(fs.readFileSync("./jobData.json", "utf-8"));
-
-
         const jobIdValue = jobData.jobIdValue1;
         const jobCard = await this.page.locator(`.card:has-text("Job ID: ${jobIdValue}")`);
 

@@ -4,7 +4,7 @@ export class LoginPage {
         this.page = page;
         this.emailInput = page.getByLabel('Email');
         this.passwordInput = page.getByLabel('Password');
-        this.loginButton = page.getByRole('button', { name: 'Log In' });
+        this.loginButton = page.locator('button[type="submit"]');
         this.logoutButton = page.locator('text=Log Out');
         this.menu = page.locator('button[aria-label="menu"]');
     }

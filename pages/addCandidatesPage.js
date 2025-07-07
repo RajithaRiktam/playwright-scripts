@@ -36,7 +36,7 @@ export class AddCandidatesPage {
             for (const candidate of job.candidates) {
                 console.log(`Adding candidate: ${candidate.firstName} ${candidate.lastName}`);
 
-                const modalBackdrop = this.page.locator('.MuiBackdrop-root');
+                const modalBackdrop = await this.page.locator('.MuiBackdrop-root');
 
                 if (await modalBackdrop.isVisible().catch(() => false)) {
                     console.log(" Modal detected. Closing...");
@@ -47,23 +47,18 @@ export class AddCandidatesPage {
                     });
                 }
 
-
-
                 console.log("Modal closed. Proceeding...");
 
                 // Ensure the button is enabled before clicking
                 await this.page.locator(addCandidatesLocators.addCandidateButton).waitFor({ state: 'visible', timeout: 5000 });
-
                 await this.page.locator(addCandidatesLocators.addCandidateButton).click({ force: true });
-
                 await this.page.locator('input[name="firstName"]').fill(candidate.firstName);
                 await this.page.locator('input[name="lastName"]').fill(candidate.lastName);
                 await this.page.locator('input[name="preferredName"]').fill(candidate.preferredName);
                 await this.page.locator('input[name="email"]').fill(candidate.email);
                 await this.page.getByRole('spinbutton').fill(candidate.experience.toString());
-
                 await this.page.locator('#country-selector').fill(candidate.country);
-                const dropdownOption = this.page.getByRole('option', { name: candidate.countryoption });
+                const dropdownOption = await this.page.getByRole('option', { name: candidate.countryoption });
 
                 if (await dropdownOption.isVisible().catch(() => false)) {
                     await dropdownOption.click();
@@ -75,8 +70,8 @@ export class AddCandidatesPage {
                 console.log(`Clicked "Save" for ${candidate.email}`);
 
                 // Wait for success message
-                const successToast = this.page.locator('//div[contains(@class, "Toastify__toast-body")]');
-                const successMessage = this.page.locator('//div[text()="Successfully saved user details"]');
+                const successToast = await this.page.locator('//div[contains(@class, "Toastify__toast-body")]');
+                const successMessage = await this.page.locator('//div[text()="Successfully saved user details"]');
 
                 const successAppeared = await Promise.race([
                     successToast.waitFor({ state: 'attached', timeout: 10000 }).then(() => true).catch(() => false),
@@ -90,34 +85,33 @@ export class AddCandidatesPage {
                     console.log(`Successfully saved candidate: ${candidate.email}`);
                 }
 
-
-                const candidateLocator = this.page.locator('tr', { hasText: candidate.email });
-
                 try {
-                    await this.page.waitForFunction(
-                        async (email) => {
-                            const rows = document.querySelectorAll('tr');
-                            return Array.from(rows).some(row => row.innerText.includes(email));
-                        },
-                        candidate.email,
-                        { timeout: 15000 }
-                    );
-                    console.log(`Candidate row found: ${candidate.email}`);
+                    const candidateEmailLocator = this.page.locator(`p:text("${candidate.email}")`);
 
-                    await candidateLocator.waitFor({ state: 'visible', timeout: 5000 });
-                    await expect(candidateLocator).toContainText(candidate.email);
+                    await expect.poll(
+                        async () => await candidateEmailLocator.count(),
+                        {
+                            timeout: 20000,
+                            message: `Waiting for candidate email: ${candidate.email} to appear`
+                        }
+                    ).toBeGreaterThan(0);
+                    await candidateEmailLocator.scrollIntoViewIfNeeded();
+                    await expect(candidateEmailLocator).toBeVisible();
+                    await expect(candidateEmailLocator).toContainText(candidate.email);
+                    console.log(`Candidate found: ${candidate.email}`);
                 } catch (error) {
-                    console.error(`ERROR: Candidate row did NOT appear for ${candidate.email}`);
+                    console.error(`ERROR: Candidate did NOT appear for ${candidate.email}`);
                 }
+
             }
 
             // Ensure page navigation completes before proceeding
-              try {
-                   await this.page.goBack();
-                   await this.page.waitForLoadState('domcontentloaded'); // Wait for page load
-               } catch (error) {
-                   console.error(`ERROR: Failed to navigate back`);
-               }
+            try {
+                await this.page.goBack();
+                await this.page.waitForLoadState('domcontentloaded'); // Wait for page load
+            } catch (error) {
+                console.error(`ERROR: Failed to navigate back`);
+            }
         }
     }
 }

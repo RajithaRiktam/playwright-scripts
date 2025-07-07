@@ -38,11 +38,11 @@ export class DeleteOpeningPage {
                 await jobContainer.locator(deleteLocators.moreVertIcon).click();
 
                 // Wait for the delete option to be visible after clicking the menu
-                const deleteIcon = this.page.locator(deleteLocators.deleteIcon);
+                const deleteIcon = await this.page.locator(deleteLocators.deleteIcon);
                 await expect(deleteIcon).toBeVisible();
                 await deleteIcon.click();
 
-                const jobIdLocator = this.page.locator(deleteLocators.deleteDialogTitle);
+                const jobIdLocator = await this.page.locator(deleteLocators.deleteDialogTitle);
                 await jobIdLocator.waitFor({ state: "visible" });
 
                 // Get the text content of the delete confirmation dialog
@@ -50,7 +50,7 @@ export class DeleteOpeningPage {
                 console.log("Dialog Text - ", dialogText);
 
                 // Extract Job ID using regex
-                const jobIdMatch = dialogText.match(/id:\s([a-f0-9]{24})/);
+                const jobIdMatch = await dialogText.match(/id:\s([a-f0-9]{24})/);
 
                 if (jobIdMatch) {
                     const jobID_Dialog = jobIdMatch[1]; // Extracted Job ID
@@ -72,7 +72,7 @@ export class DeleteOpeningPage {
                 console.log(alertText);
                 await expect(this.page.getByText(alertText)).toBeVisible();
 
-                console.log(`Successfully deleted Job ID: ${jobIdValue}`);
+                console.log(`PASS - Successfully deleted Job ID: ${jobIdValue}`);
                 await this.page.waitForTimeout(500);
             } catch (error) {
                 console.error(`ERROR - Failed to delete Job ID: ${jobIdValue} - ${error.message}`);
